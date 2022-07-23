@@ -1,0 +1,10 @@
+<app-header (showEvent)="updateItem($event)"></app-header>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <app-recipes *ngIf="(item === 'recipes')"></app-recipes>
+      <app-shopping-list *ngIf="(item === 'shoppingList')"></app-shopping-list>
+    </div>
+  </div>
+</div>
+
