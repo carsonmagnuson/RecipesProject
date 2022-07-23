@@ -6,7 +6,7 @@ import {Component, EventEmitter, OnInit, Output} from "@angular/core";
 })
 export class HeaderComponent implements OnInit {
   collapsed = true;
-  @Output() showEvent = new EventEmitter<string>();
+  // @Output() showEvent = new EventEmitter<string>();
 
   ngOnInit(): void {
   }
@@ -14,8 +14,8 @@ export class HeaderComponent implements OnInit {
   constructor() {
   }
 
-  onNavClick( item: string) {
-    this.showEvent.emit(item);
-  }
+  // onNavClick( item: string) {
+  //   this.showEvent.emit(item);
+  // }
 
 }
