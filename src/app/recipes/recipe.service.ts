@@ -29,5 +29,9 @@ export class RecipeService{
     return this.recipes.slice(); //using slice makes sure we return a copy instead of returning the reference itself
   }
 
+  getRecipe(index: number) {
+    return this.recipes[index];
+  }
+
 
 }
