@@ -7,9 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'rubrumAlpha';
-  item = 'recipes';
-
-  updateItem(newItem: string){
-    this.item = newItem;
-  }
 }
