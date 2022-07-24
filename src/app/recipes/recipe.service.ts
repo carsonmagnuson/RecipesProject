@@ -4,7 +4,7 @@ import {Ingredient} from "../shared/ingredient.model";
 
 @Injectable({providedIn:'root'})
 export class RecipeService{
-  recipeSelected = new EventEmitter<Recipe>();
+  // recipeSelected = new EventEmitter<Recipe>();
 
   private recipes: Recipe[] = [
     new Recipe(
