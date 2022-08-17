@@ -1,4 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from "@angular/core";
+import {DataStorageService} from "../shared/data-storage.service";
 
 @Component({
   selector: 'app-header',
@@ -8,10 +9,19 @@ export class HeaderComponent implements OnInit {
   collapsed = true;
   // @Output() showEvent = new EventEmitter<string>();
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
-  constructor() {
+  constructor(private dataStorageService: DataStorageService) {
+  }
+
+  onSaveData() {
+    // console.log('data saved');
+    this.dataStorageService.storeRecipes();
+  }
+
+  onFetchData() {
+    this.dataStorageService.fetchRecipes();
   }
 
   // onNavClick( item: string) {
