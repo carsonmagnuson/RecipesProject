@@ -85,20 +85,23 @@ export class AuthService {
     );
 
     if (loadedUser.token) {
-      // this.handleAuthentication(
-      //   userData.email,
-      //   userData.id,
-      //   userData._token,
-      //   +userData._tokenExpirationDate
-      // );
-
-      // below section was from the course, but I found it kinda dumb. Why not just reuse the handleAuthentication Method?
-      this.user.next(loadedUser);
       const expirationDuration =
         new Date(userData._tokenExpirationDate).getTime() -
         new Date().getTime();
-      this.autoLogout(expirationDuration);
+      this.handleAuthentication(
+        userData.email,
+        userData.id,
+        userData._token,
+        expirationDuration / 1000
+      );
     }
+      // below section was from the course, but I found it kinda dumb. Why not just reuse the handleAuthentication Method?
+      // this.user.next(loadedUser);
+      // const expirationDuration =
+      //   new Date(userData._tokenExpirationDate).getTime() -
+      //   new Date().getTime();
+      // this.autoLogout(expirationDuration);
+
 
   }
 
