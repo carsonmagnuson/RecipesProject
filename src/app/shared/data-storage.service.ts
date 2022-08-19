@@ -24,27 +24,22 @@ export class DataStorageService {
 
   fetchRecipes() {
     // take operator lets you get something from a subscription and immediately auto-unsubscribes you after
-    return this.authService.user.pipe(
-      take(1),
-      exhaustMap(user => {
-        return this.http.get<Recipe[]>(
-            'https://udemy-recipe-book-33aaa-default-rtdb.firebaseio.com/recipes.json',
-          {
-            params: new HttpParams().set('auth', user.token)
-          }
-          )
-      }),
-      map(recipes => {
-        return recipes.map(recipe => {
-          return {
-            ...recipe,
-            ingredients: recipe.ingredients ? recipe.ingredients : []
-          };
-        });
-      }),
-      tap(recipes => {
-        this.recipeService.setRecipes(recipes);
-      })
-    );
+    return this.http.get<Recipe[]>(
+      'https://udemy-recipe-book-33aaa-default-rtdb.firebaseio.com/recipes.json',
+    )
+      .pipe(
+        map(recipes => {
+          return recipes
+            .map(recipe => {
+            return {
+              ...recipe,
+              ingredients: recipe.ingredients ? recipe.ingredients : []
+            };
+          });
+        }),
+        tap(recipes => {
+          this.recipeService.setRecipes(recipes);
+        })
+      );
   }
 }
