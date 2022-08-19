@@ -22,6 +22,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private dataStorageService: DataStorageService, private authService: AuthService) {
   }
 
+  onLogout() {
+    this.authService.logout();
+  }
+
   onSaveData() {
     // console.log('data saved');
     this.dataStorageService.storeRecipes();
