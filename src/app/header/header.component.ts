@@ -1,18 +1,25 @@
-import {Component, EventEmitter, OnInit, Output} from "@angular/core";
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from "@angular/core";
 import {DataStorageService} from "../shared/data-storage.service";
+import {AuthService} from "../Auth/auth.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
+  isAuthenticated = false;
   collapsed = true;
+  private userSub: Subscription;
   // @Output() showEvent = new EventEmitter<string>();
 
   ngOnInit() {
+    this.userSub = this.authService.user.subscribe( user => {
+      this.isAuthenticated = !!user; //same as  '!user ? false : true'
+    });
   }
 
-  constructor(private dataStorageService: DataStorageService) {
+  constructor(private dataStorageService: DataStorageService, private authService: AuthService) {
   }
 
   onSaveData() {
@@ -22,6 +29,10 @@ export class HeaderComponent implements OnInit {
 
   onFetchData() {
     this.dataStorageService.fetchRecipes().subscribe();
+  }
+
+  ngOnDestroy() {
+    this.userSub.unsubscribe();
   }
 
   // onNavClick( item: string) {
