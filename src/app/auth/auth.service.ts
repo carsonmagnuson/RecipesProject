@@ -39,7 +39,7 @@ export class AuthService {
           resData.email,
           resData.localId,
           resData.idToken,
-          +resData.expiresIn
+          +resData.expiresIn*1000
         )
       })
     );
@@ -61,7 +61,7 @@ export class AuthService {
           resData.email,
           resData.localId,
           resData.idToken,
-          +resData.expiresIn
+          +resData.expiresIn*1000
         )
       })
     );
@@ -95,7 +95,7 @@ export class AuthService {
         userData.email,
         userData.id,
         userData._token,
-        expirationDuration / 1000
+        expirationDuration
       );
     }
       // below section was from the course, but I found it kinda dumb. Why not just reuse the handleAuthentication Method?
@@ -125,7 +125,7 @@ export class AuthService {
   }
 
   private handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {
-    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+    const expirationDate = new Date(new Date().getTime() + expiresIn);
     const user = new User(
       email,
       userId,
@@ -133,7 +133,7 @@ export class AuthService {
       expirationDate
     );
     this.user.next(user);
-    this.autoLogout(expiresIn * 1000);
+    this.autoLogout(expiresIn);
     localStorage.setItem('userData', JSON.stringify(user));
   }
 
