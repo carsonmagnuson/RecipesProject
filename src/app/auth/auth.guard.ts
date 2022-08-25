@@ -13,10 +13,14 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean | Promise<boolean> | Observable<boolean | UrlTree> {
+
     return this.authService.user.pipe(
       take(1),
       map(user => {
         const isAuth = !!user;
+        if(state.url === "/auth") {
+          return isAuth ? this.router.createUrlTree(['/recipes']) : true;
+        }
         return isAuth ? true : this.router.createUrlTree(['/auth']);
       }),
       // tap(isAuth => { old approach, without UrlTree
